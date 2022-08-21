@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Body } from './components/Body/Body';
+import { StyledTitle } from './components/Title/Title.styles';
+
+const apiurl = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+const apikey = '&appid=4b94dc81c21c4832ee25c03d9f8885df';
 
 function App() {
+  const [weather, setWeather] = useState({});
+
+  const onSearch = async (value) => {
+    await fetch(apiurl + value + apikey + '&units=metric')
+      .then((response) => response.text())
+      .then((text) => {
+        setWeather(() => JSON.parse(text));
+      });
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <StyledTitle>Weather App</StyledTitle>
+        <Body city={weather} onSearch={onSearch} weather={weather} />
+      </div>
     </div>
   );
 }
