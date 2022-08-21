@@ -8,6 +8,7 @@ const StyledTemperature = styled.div`
   text-align: center;
 `;
 const StyledRight = styled.div`
+  line-height: 20px;
   text-align: right;
   display: flex;
   flex-direction: column;
